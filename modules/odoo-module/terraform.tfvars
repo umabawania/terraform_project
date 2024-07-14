@@ -1,0 +1,12 @@
+access_key = ""
+secret_key = ""  
+region     = ""                                       # your aws region  
+vpc_cidr          = "10.0.0.0/16"                     # Your VPC CIDR block
+subnet_cidr       = "10.0.2.0/24"                     # Your subnet CIDR block
+availability_zone = "us-east-1a"                      # Your desired availability zone
+ami_id            = ""                                # Your desired AMI ID
+instance_type     = "t2.micro"                        # Your desired instance type
+key_name          = "key_pair-1"  
+s3_bucket         = ""                                # your Aws S3 bucket name
+tfstate_path      = ""                                # path/to/your/terraform.tfstate
+dynamodb_table    = ""                                # terraform-locks

@@ -40,13 +40,13 @@ variable "key_name" {
   default     = "key-1"
 }
 
-variable "vpc_cidr" {
+variable "vpc_cidr_block" {
   description = "CIDR block for the VPC"
   type        = string
   default     = "10.0.0.0/16"
 }
 
-variable "subnet_cidr" {
+variable "subnet_cidr_block_public" {
   description = "CIDR block for the public subnet"
   type        = string
   default     = "10.0.1.0/24"

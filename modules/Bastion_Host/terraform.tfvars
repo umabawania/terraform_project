@@ -1,0 +1,12 @@
+access_key        = ""                                         # your access key
+secret_key        = ""                                         # Your secret key
+region            = ""                                         # your Aws Region
+s3_bucket         = ""                                  # your Aws S3 bucket name
+tfstate_path      = ""                                  # path/to/your/terraform.tfstate
+dynamodb_table    = ""                                  # terraform-locks
+ami_id            = ""
+instance_type     = "t2.micro"
+key_name          = "key-1"
+vpc_cidr_block    = "10.0.0.0/16"
+subnet_cidr_block_public = "10.0.1.0/24"
+subnet_cidr_block_private = "10.0.2.0/24"

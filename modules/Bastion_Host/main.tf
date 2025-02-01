@@ -1,14 +1,12 @@
 resource "aws_vpc" "test" {
   cidr_block       = var.vpc_cidr_block
   instance_tenancy = "default"
-  provider         = aws.N-virginia
   tags = {
     Name = "test"
   }
 }
 
 resource "aws_subnet" "public_subnet" {
-  provider            = aws.N-virginia
   vpc_id              = aws_vpc.test.id
   cidr_block         = var.subnet_cidr_block_public
   availability_zone   = var.availability_zone
@@ -19,7 +17,6 @@ resource "aws_subnet" "public_subnet" {
 }
 
 resource "aws_subnet" "private_subnet" {
-  provider            = aws.N-virginia
   vpc_id              = aws_vpc.test.id
   cidr_block         = var.subnet_cidr_block_private
   availability_zone   = var.availability_zone
@@ -31,7 +28,6 @@ resource "aws_subnet" "private_subnet" {
 
 resource "aws_internet_gateway" "test_igw" {
   vpc_id   = aws_vpc.test.id
-  provider = aws.N-virginia
   tags = {
     Name = "test_igw"
   }
@@ -39,8 +35,6 @@ resource "aws_internet_gateway" "test_igw" {
 
 resource "aws_route_table" "test-route" {
   vpc_id   = aws_vpc.test.id
-  provider = aws.N-virginia
-  
   tags = {
     Name = "test-route"
   }
@@ -50,20 +44,17 @@ resource "aws_route" "internet_access-1" {
   route_table_id         = aws_route_table.test-route.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.test_igw.id
-  provider = aws.N-virginia
 }
 
 resource "aws_route_table_association" "subnet_association-1" {
   subnet_id      = aws_subnet.public_subnet.id
   route_table_id = aws_route_table.test-route.id
-  provider = aws.N-virginia
 }
 
 resource "aws_security_group" "test_sg" {
   name        = "virginia-sg"
   description = "Allow SSH and HTTP traffic"
   vpc_id      = aws_vpc.test.id
-  provider    = aws.N-virginia
 
   ingress {
     from_port   = 22
@@ -98,7 +89,6 @@ resource "aws_instance" "public_instance" {
   subnet_id             = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.test_sg.id]
   associate_public_ip_address = true
-  provider = aws.N-virginia
 
   tags = {
     Name = "public-ec2-instance"
@@ -121,14 +111,9 @@ resource "aws_instance" "Bastion_host_instance" {
   subnet_id             = aws_subnet.private_subnet.id
   vpc_security_group_ids = [aws_security_group.test_sg.id]
   associate_public_ip_address = false
-  provider = aws.N-virginia
 
   tags = {
     Name = "private-ec2-instance"
   }
 }
 
-resource "aws_s3_bucket" "remote-backend" {
-  bucket   = "remote-backend2003"
-  provider = aws.N-virginia
-}
